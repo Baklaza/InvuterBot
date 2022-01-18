@@ -41,7 +41,6 @@ async def invites(ctx):
     template.rectangle((50, 124), 900, 25, (255, 255, 255), radius = 90)
     template.paste(author_image, (50, 51))
     template.text((114, 64), f'{ctx.author.name}#{ctx.author.discriminator}', font, (255, 255, 255))
-    added_members_count = 1
     template.text((950, 64), f'{added_members_count} / 5', font, (255, 255, 255), 'right')
 
     percentage = (added_members_count * 100) / 5
