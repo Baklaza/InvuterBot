@@ -9,6 +9,7 @@ discord.member = True
 discord.reaction = True
 
 bot = commands.Bot("-", intents = intents)
+    
 
 
 @bot.command()
@@ -121,6 +122,10 @@ async def ainviters(ctx):
 
     top = ''
     for name, inv in sorted_dict.items():
+        
+        if inv >= 5:
+            role = get(ctx.guild.roles, name = 'Whitelist')
+            await ctx.author.add_roles(role)
 
         if name != 'nonenickname' and inv != 0:
             top += f'{name} - {inv} invites\n'
