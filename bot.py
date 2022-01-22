@@ -95,6 +95,41 @@ async def topinviters(ctx):
     embed.description = top
     embed.colour = discord.Colour.from_rgb(225, 80, 227)
     await ctx.message.reply(embed = embed)
+    
+    
+@bot.command()
+async def ainviters(ctx):
+    inviters_dict = {}
+    invites = await ctx.guild.invites()
+    
+    for invite in invites:
+        if invite.inviter.name not in inviters_dict:
+            inviters_dict[invite.inviter.name] = invite.uses
+        else:
+            inviters_dict[invite.inviter.name] += invite.uses
+    
+
+    sorted_values = sorted(inviters_dict.values(), reverse = True)
+    sorted_dict = {}
+
+    for i in sorted_values:
+        for k in inviters_dict.keys():
+            if inviters_dict[k] == i:
+                sorted_dict[k] = inviters_dict[k]
+                # break
+
+
+    top = ''
+    for name, inv in sorted_dict.items():
+
+        if name != 'nonenickname' and inv != 0:
+            top += f'{name} - {inv} invites\n'
+
+    embed = discord.Embed()
+    embed.title = 'Top 10 inviters'
+    embed.description = top
+    embed.colour = discord.Colour.from_rgb(225, 80, 227)
+    await ctx.message.reply(embed = embed)
 
 
 token = os.environ.get('BOT_TOKEN')
